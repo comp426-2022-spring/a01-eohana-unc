@@ -1,19 +1,25 @@
 const http = require("http")
 const fs = require("fs")
+const { exit } = require("process")
 // const minimist = require("minimist")
 
 const port = process.env.PORT || 3000
 
+let tempPageVar
+
+try {
+  tempPageVar = fs.readFileSync("www/index.html", "utf8")
+} catch (err) {
+  console.log(err)
+  exit(1)
+}
+
+const webpage = tempPageVar
+
 const server = http.createServer((req, res) => {
-  
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/html')
-  try {
-    const webpage = fs.readFileSync("www/index.html", "utf8")
+    res.statusCode = 200
+    res.setHeader('Content-Type', 'text/html')  
     res.end(webpage)
-  } catch (err) {
-    console.log(err)
-  } 
 })
 
 server.listen(port, () => {
