@@ -1,9 +1,10 @@
 const http = require("http")
 const fs = require("fs")
 const { exit } = require("process")
-// const minimist = require("minimist")
+const args = require("minimist")(process.argv)
+// console.log(args)
 
-const port = process.env.PORT || 3000
+const port = args["port"] || process.env.PORT || 3000
 
 let tempPageVar
 
