@@ -1,3 +1,4 @@
+#!/usr/local/bin/node
 const http = require("http")
 const fs = require("fs")
 const { exit } = require("process")
