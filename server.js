@@ -6,21 +6,17 @@ const args = require("minimist")(process.argv)
 
 const port = args["port"] || process.env.PORT || 3000
 
-let tempPageVar
-
-try {
-  tempPageVar = fs.readFileSync("www/index.html", "utf8")
-} catch (err) {
-  console.log(err)
-  exit(1)
-}
-
-const webpage = tempPageVar
-
 const server = http.createServer((req, res) => {
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'text/html')  
-    res.end(webpage)
+  let webpage
+  try {
+    webpage = fs.readFileSync("www/index.html", "utf8")
+  } catch (err) {
+    console.log(err)
+    exit(1)
+  }
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'text/html')  
+  res.end(webpage)
 })
 
 server.listen(port, () => {
