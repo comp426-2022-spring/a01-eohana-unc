@@ -7,19 +7,22 @@ const args = require("minimist")(process.argv)
 
 const port = args["port"] || process.env.PORT || 3000
 
-const server = http.createServer((req, res) => {
-  let webpage
-  try {
-    webpage = fs.readFileSync("www/index.html", "utf8")
-  } catch (err) {
-    console.log(err)
+
+fs.readFile("www/index.html", "utf8", (err, data) => {
+
+  if (err) {
+    console.error(err)
     exit(1)
   }
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/html')  
-  res.end(webpage)
-})
 
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}`)
+  const server = http.createServer((req, res) => {
+    res.statusCode = 200
+    res.setHeader('Content-Type', 'text/html')  
+    res.end(data)
+  })
+
+  server.listen(port, () => {
+    console.log(`Server listening on port ${port}`)
+  })
+
 })
