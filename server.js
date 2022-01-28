@@ -8,7 +8,7 @@ const args = require("minimist")(process.argv)
 const port = args["port"] || process.env.PORT || 3000
 
 
-fs.readFile("www/index.html", "utf8", (err, data) => {
+fs.readFile("./www/index.html", "utf8", (err, data) => {
 
   if (err) {
     console.error(err)
